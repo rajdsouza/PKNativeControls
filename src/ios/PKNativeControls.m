@@ -567,13 +567,13 @@ typedef CDVPluginResult* (^nativeControlHandler)(NSString*, NSString*, id, UIVie
  */
 -(void) sendEvent: (NSString *)event withData: (NSString *)data forControlID: (NSString *)ID
 {
-  if (data == NULL)
+   if (data == NULL)
   {
-    [self writeJavascript:[NSString stringWithFormat:@"setTimeout( function() { cordova.fireDocumentEvent('%@_%@') }, 0);", ID, event]];
+    [self.commandDelegate evalJs:[NSString stringWithFormat:@"setTimeout( function() { cordova.fireDocumentEvent('%@_%@') }, 0);", ID, event]];
   }
   else
   {
-    [self writeJavascript:[NSString stringWithFormat:@"setTimeout( function() { cordova.fireDocumentEvent('%@_%@', {data:'%@'} ) }, 0);", ID, event, data]];
+    [self.commandDelegate evalJs:[NSString stringWithFormat:@"setTimeout( function() { cordova.fireDocumentEvent('%@_%@', {data:'%@'} ) }, 0);", ID, event, data]];
   }
 }
 -(void) sendEvent: (NSString *)event forControlID: (NSString *)ID
